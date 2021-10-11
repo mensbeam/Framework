@@ -1,0 +1,37 @@
+{
+    "name": "mensbeam/framework",
+    "description": "Common classes and traits used in many Mensbeam projects",
+    "type": "library",
+    "require": {
+        "php": ">=7.4"
+    },
+    "scripts": {
+        "post-install-cmd": ["@composer bin all install"],
+        "post-update-cmd": ["@composer bin all update"]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dustin Wilson",
+            "email": "dustin@dustinwilson.com",
+            "homepage": "https://dustinwilson.com/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MensBeam\\Framework\\": [
+                "lib/"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MensBeam\\Framework\\TestCase\\": [
+                "tests/cases/"
+            ]
+        }
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.3"
+    }
+}
