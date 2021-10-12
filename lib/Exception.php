@@ -17,6 +17,7 @@ class Exception extends \Exception {
     const NONEXISTENT_PROPERTY = 201;
     const READONLY_PROPERTY = 202;
     const ARGUMENT_TYPE_ERROR = 203;
+    const UNDEFINED_METHOD = 204;
 
 
     protected static $messages = [
@@ -27,7 +28,8 @@ class Exception extends \Exception {
 
         201 => 'Property %s does not exist',
         202 => 'Cannot write readonly property %s',
-        203 => 'Argument #%s ($%s) must be of type %s, %s given'
+        203 => 'Argument #%s ($%s) must be of type %s, %s given',
+        204 => 'Call to undefined method %s::%s()'
     ];
 
     public function __construct(int $code, ...$args) {
