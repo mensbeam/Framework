@@ -18,7 +18,7 @@ class Exception extends \Exception {
     const READONLY_PROPERTY = 202;
     const ARGUMENT_TYPE_ERROR = 203;
     const UNDEFINED_METHOD = 204;
-    const CLOSURE_RETURN_TYPE_ERROR = 205;
+    const RETURN_TYPE_ERROR = 205;
 
 
     protected static $messages = [
@@ -31,7 +31,7 @@ class Exception extends \Exception {
         202 => 'Cannot write readonly property %s',
         203 => 'Argument #%s ($%s) must be of type %s, %s given',
         204 => 'Call to undefined method %s::%s()',
-        205 => 'Closure must return type %s, %s given'
+        205 => 'Function should return type %s, %s given'
     ];
 
     public function __construct(int $code, ...$args) {
