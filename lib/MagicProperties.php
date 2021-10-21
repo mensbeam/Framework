@@ -50,17 +50,17 @@ trait MagicProperties {
     // PHP. Properties in PHP 8 are sensitive, so let's use reflection to check
     // against the actual name to get a case sensitive match like methods should be!
     private function getMagicPropertyMethodName(string $name, bool $get = true): ?string {
-        static $protectedMethodsList = null;
+        static $protectedMethodsList = [];
 
         $methodName = "__" . (($get) ? 'get' : 'set') . "_{$name}";
         if (method_exists($this, $methodName)) {
-            if ($protectedMethodsList === null) {
+            if (!isset($protectedMethodsList[$this::class])) {
                 $reflector = new \ReflectionClass($this);
                 // Magic property methods are protected
-                $protectedMethodsList = $reflector->getMethods(\ReflectionMethod::IS_PROTECTED);
+                $protectedMethodsList[$this::class] = $reflector->getMethods(\ReflectionMethod::IS_PROTECTED);
             }
 
-            foreach ($protectedMethodsList as $method) {
+            foreach ($protectedMethodsList[$this::class] as $method) {
                 if ($method->name === $methodName) {
                     return $methodName;
                 }
