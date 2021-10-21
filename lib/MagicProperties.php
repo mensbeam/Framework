@@ -57,14 +57,25 @@ trait MagicProperties {
             if (!isset($protectedMethodsList[$this::class])) {
                 $reflector = new \ReflectionClass($this);
                 // Magic property methods are protected
-                $protectedMethodsList[$this::class] = $reflector->getMethods(\ReflectionMethod::IS_PROTECTED);
+                $methodsList = $reflector->getMethods(\ReflectionMethod::IS_PROTECTED);
+                $temp = [];
+                $valid = false;
+                // Only cache the magic methods
+                foreach ($methodsList as $m) {
+                    if (str_starts_with($m->name, '__get_') || str_starts_with($m->name, '__set_')) {
+                        $temp[] = $m->name;
+
+                        if (!$valid && $m->name === $methodName) {
+                            $valid = true;
+                        }
+                    }
+                }
+
+                $protectedMethodsList[$this::class] = $temp;
+                return ($valid) ? $methodName : null;
             }
 
-            foreach ($protectedMethodsList[$this::class] as $method) {
-                if ($method->name === $methodName) {
-                    return $methodName;
-                }
-            }
+            return (in_array($methodName, $protectedMethodsList[$this::class])) ? $methodName : null;
         }
 
         return null;
