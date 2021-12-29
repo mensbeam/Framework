@@ -15,7 +15,7 @@ trait MagicProperties {
         if ($methodName === null) {
             throw new Exception(Exception::NONEXISTENT_PROPERTY, $name);
         }
-        return call_user_func([ $this, $methodName ]);
+        return $this->$methodName();
     }
 
     public function __isset(string $name): bool {
@@ -25,7 +25,7 @@ trait MagicProperties {
     public function __set(string $name, $value) {
         $methodName = $this->getMagicPropertyMethodName($name, false);
         if ($methodName !== null) {
-            call_user_func([ $this, $methodName ], $value);
+            $this->$methodName($value);
             return;
         }
 
