@@ -17,6 +17,7 @@
   <testsuites>
     <testsuite name="GetSet">
       <file>cases/TestException.php</file>
+      <file>cases/TestFauxReadOnly.php</file>
       <file>cases/TestMagicProperties.php</file>
     </testsuite>
   </testsuites>
